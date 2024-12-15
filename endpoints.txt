@@ -1,0 +1,132 @@
+    //Routes d'authentification (authRoutes.js)
+
+--pour passer en admin (seulement pour effectuer des test)
+
+Méthode : POST
+URL : http://localhost:8000/auth/set_user_to_admin/:id_utilisateur
+Headers : Authorization: Bearer <votre_token>
+Paramètre : id_utilisateur (ID de l'utilisateur à changer)
+Body (JSON) 
+{
+  "email": "votre.email@example.com",
+  "password": "votreMotDePasse"
+}
+
+
+--Inscription (signup)
+
+Méthode : POST
+URL : http://localhost:8000/auth/signup
+Body (JSON) 
+
+{
+  "nom": "VotreNom",
+  "email": "votre.email@example.com",
+  "password": "votreMotDePasse"
+}
+
+--Connexion (login)
+
+Méthode : POST
+URL : http://localhost:8000/auth/login
+Body (JSON) :
+{
+  "email": "votre.email@example.com",
+  "password": "votreMotDePasse"
+}
+
+    // Routes des projets (projectRoutes.js)
+
+--Obtenir un projet spécifique par ID
+
+Méthode : GET
+URL : http://localhost:8000/projects/GetProject/:projectsId
+Paramètre : projectsId (ID du projet)
+
+--Obtenir tous les projets
+
+Méthode : GET
+URL : http://localhost:8000/projects/GetProjects
+
+
+(pour le middleware authenticateToken il faut d'abord se connecter via"/login" puis ajouter dans le Headers)
+Headers:
+  Key: authorization
+  Value: Bearer <token>
+
+--Créer un nouveau projet (necessite authentification + isAdmin)
+
+Méthode : POST
+URL : http://localhost:8000/projects/NewProject
+Headers : authorization: Bearer <votre_token>
+Body (JSON) 
+{
+  "nom": "Nom du projet",
+  "date_debut": "2024-01-01",
+  "date_fin": "2024-12-31",
+  "statut": "En cours"
+}
+
+-- Mettre à jour un projet par ID (necessite authentification + isAdmin)
+
+Méthode : PUT
+URL : http://localhost:8000/projects/UpdProject/:projectsId
+Headers : Authorization: Bearer <votre_token>
+Paramètre : projectsId (ID du projet)
+Body (JSON) :
+{
+  "nom": "Nom mis à jour",
+  "date_debut": "2024-01-01",
+  "date_fin": "2024-12-31",
+  "statut": "Fait"
+}
+
+--Supprimer un projet par ID (necessite authentification + isAdmin)
+
+Méthode : DELETE
+URL : http://localhost:8000/projects/DelProject/:projectsId
+Headers : Authorization: Bearer <votre_token>
+Paramètre : projectsId (ID du projet)
+
+      //Routes des tâches (taskRoutes.js)
+
+  --Obtenir toutes les tâches
+
+Méthode : GET
+URL : http://localhost:8000/tasks/GetTasks
+
+  --Créer une nouvelle tâche
+
+Méthode : POST
+URL : http://localhost:8000/tasks/NewTask
+Headers : Authorization: Bearer <votre_token>
+Body (JSON) :
+  {
+    "titre": "Titre de la tâche",
+    "description": "Description de la tâche",
+    "deadline": "2024-12-31",
+    "statut": "En cours",
+    "id_projet": 1
+  }
+
+  --Mettre à jour une tâche par ID
+
+Méthode : PUT
+URL : http://localhost:8000/tasks/UpdTask/:taskId
+Headers : Authorization: Bearer <votre_token>
+Paramètre : taskId (ID de la tâche)
+Body (JSON) :
+{
+  "titre": "Titre mis à jour",
+  "description": "Description mise à jour",
+  "deadline": "2024-12-31",
+  "statut": "Fait",
+  "id_projet": 1
+}
+
+  --Supprimer une tâche par ID
+
+Méthode : DELETE
+URL : http://localhost:8000/tasks/DelTask/:taskId
+Headers : Authorization: Bearer <votre_token>
+Paramètre : taskId (ID de la tâche)
