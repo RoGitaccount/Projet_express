@@ -11,6 +11,28 @@ import { getConnection } from "../queries/connect.js";
 const client = getConnection("express_project");
 const router = express.Router();
 
+// Obtenir une tâche spécifique par ID
+router.get(
+  "/GetTask/:taskId",
+  [param("taskId").isInt().withMessage("L'ID doit être un entier valide.")],
+  validateRequest,
+  (req, res) => {
+    const taskId = parseInt(req.params.taskId, 10);
+
+    Tache.Find_Task(client, taskId, (err, project) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ message: "Erreur lors de la récupération de la tâche." });
+      }
+      if (!project) {
+        return res.status(404).json({ message: "Tâche non trouvé." });
+      }
+      res.status(200).json(project);
+    });
+  }
+);
+
 router.get("/GetTasks", (req, res) => {
   Tache.Get_All_Task(client, (err, results) => {
     if (err) {
@@ -22,6 +44,7 @@ router.get("/GetTasks", (req, res) => {
   });
 });
 
+//ajoute une nouvelle tâche
 router.post(
   "/NewTask",
   authenticateToken,
@@ -77,6 +100,7 @@ router.post(
   }
 );
 
+//mettre à jour une tâche par id
 router.put(
   "/UpdTask/:taskId",
   authenticateToken,
@@ -156,6 +180,7 @@ router.put(
   }
 );
 
+// Supprimer une tâche par ID
 router.delete(
   "/DelTask/:taskId",
   authenticateToken,

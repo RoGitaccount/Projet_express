@@ -1,8 +1,8 @@
     //Routes d'authentification (authRoutes.js)
 
---pour passer en admin (seulement pour effectuer des test)
+--pour passer en admin (seulement pour effectuer des test et necessite une connexion)
 
-Méthode : POST
+Méthode : PUT
 URL : http://localhost:8000/auth/set_user_to_admin/:id_utilisateur
 Headers : Authorization: Bearer <votre_token>
 Paramètre : id_utilisateur (ID de l'utilisateur à changer)
@@ -11,7 +11,6 @@ Body (JSON)
   "email": "votre.email@example.com",
   "password": "votreMotDePasse"
 }
-
 
 --Inscription (signup)
 
@@ -34,6 +33,9 @@ Body (JSON) :
   "email": "votre.email@example.com",
   "password": "votreMotDePasse"
 }
+
+
+
 
     // Routes des projets (projectRoutes.js)
 
@@ -88,14 +90,24 @@ URL : http://localhost:8000/projects/DelProject/:projectsId
 Headers : Authorization: Bearer <votre_token>
 Paramètre : projectsId (ID du projet)
 
+
+
+
+
       //Routes des tâches (taskRoutes.js)
+
+--Obtenir une tâche selon l'id de la tâche
+
+Méthode : GET
+URL :  http://localhost:8000/tasks/GetTask/:taskId
+Paramètre : taskId (ID de la tâche)
 
   --Obtenir toutes les tâches
 
 Méthode : GET
 URL : http://localhost:8000/tasks/GetTasks
 
-  --Créer une nouvelle tâche
+  --Créer une nouvelle tâche (necessite authentification)
 
 Méthode : POST
 URL : http://localhost:8000/tasks/NewTask
@@ -109,7 +121,7 @@ Body (JSON) :
     "id_projet": 1
   }
 
-  --Mettre à jour une tâche par ID
+  --Mettre à jour une tâche par ID (necessite authentification + isAdmin)
 
 Méthode : PUT
 URL : http://localhost:8000/tasks/UpdTask/:taskId
@@ -124,7 +136,7 @@ Body (JSON) :
   "id_projet": 1
 }
 
-  --Supprimer une tâche par ID
+  --Supprimer une tâche par ID (necessite authentification + isAdmin)
 
 Méthode : DELETE
 URL : http://localhost:8000/tasks/DelTask/:taskId

@@ -1,20 +1,20 @@
 //  -- table User
 
-//Dans le cas où inserData ne fonctionne pas 
-      // Modifier le rôle d'un utilisateur en "admin"
-      export function SetUserToAdmin(client, id_utilisateur, callback) {
-        const query = `
-          UPDATE Utilisateur
-          SET role = 'admin'
-          WHERE id_utilisateur = ? AND role != 'admin'
-        `;
-        client.query(query, [id_utilisateur], (err, results) => {
-          if (err) {
-            return callback(err, null);
-          }
-          callback(null, results);
-        });
-      }
+// //Dans le cas où insertData ne fonctionne pas 
+//       // Modifier le rôle d'un utilisateur en "admin"
+//       export function SetUserToAdmin(client, id_utilisateur, callback) {
+//         const query = `
+//           UPDATE Utilisateur
+//           SET role = 'admin'
+//           WHERE id_utilisateur = ? AND role != 'admin'
+//         `;
+//         client.query(query, [id_utilisateur], (err, results) => {
+//           if (err) {
+//             return callback(err, null);
+//           }
+//           callback(null, results);
+//         });
+//       }
 
 // Récupérer tous les utilisateurs
 export function GetAllUser(client,callback){
